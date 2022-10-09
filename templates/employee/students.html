@@ -12,49 +12,9 @@
 </head>
 
 <body>
-  {#<div class="ov-header">#}
-	{##}
-		{# Employee name button and dropdown #}
-  {#  <div class="ov-employee-dropdown">#}
-	{##}
-      {# Name button #}
-	{#	  <button class="ov-employee-button ov-name">#}
-				{# Employee name as F. middle Last #}
-	{#			{{ user.name_first.0 }}. {% if user.name_middle %}{{ user.name_middle }}{% endif %} {{ user.name_last }}#}
-	{#		</button>#}
-	{##}
-      {# Dropdown content #}
-	{#    <div class="ov-employee-dropdown-content">#}
-	{#	    <a>4H  Studieloopbaanbegeleider</a>#}
-	{#	    <a>4H  Coordinator</a>#}
-	{#	    <a>4H1 Vakdocent Informatica</a>#}
-	{#	  </div>#}
-	{##}
-  {#  </div>#}
-	{##}
-	  {# Filters #}
-	{#  <form class="ov-filter-container" method="POST">#}
-	{#	  <input type="text" id="ov-filter-date" placeholder="Date">#}
-	{#	  <input type="text" id="ov-filter-time" placeholder="Time">#}
-	{#	  <input type="submit" value="submit">#}
-	{#  </form>#}
-	{##}
-    {# Logout button#}
-  {#  <button class="ov-employee-button ov-logout">Logout</button>#}
-	{##}
-  {#</div>#}
-	{##}
-  {#<div class="ov-main-container">#}
-	{##}
-	{#  <div>#}
-	{#    HALLO#}
-	{#  </div>#}
-	{##}
-  {#</div>#}
 
 <form method="POST" action="" class="navbar navbar-expand-lg navbar-dark bg-primary ps-4 pe-4">
-  {#<form class="container-fluid">#}
-		{{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
 
 	  <a href="?role=all" class="navbar-brand">{{ user.name_first.0 }}. {% if user.name_middle %}{{ user.name_middle }}{% endif %} {{ user.name_last }}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,13 +24,7 @@
 	  <div class="collapse navbar-collapse justify-content-between" id="navbarScroll">
       <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 300px;">
 
-	      {#<li class="nav-item">#}
-        {#  <a class="nav-link" aria-current="page" href="?role=all">#}
-	      {#    {{ user.name_first.0 }}. {% if user.name_middle %}{{ user.name_middle }}{% endif %} {{ user.name_last }}#}
-        {#  </a>#}
-        {#</li>#}
-
-	      <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
           <a class="nav-link
           {% if role %} active{% endif %}
             dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,11 +32,11 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
             <li><a class="dropdown-item" href="?role=all">All</a></li>
-	          <li><hr class="dropdown-divider"></li>
-	          {% for role in user.titles %}
-		          <li><a class="dropdown-item" href="?role={{ role.string }}">{% if role.year %}{{ role.year }}{% endif %}{{ role.level }} {{ role.string }}</a></li>
-	          {% endfor %}
-					</ul>
+	    <li><hr class="dropdown-divider"></li>
+	    {% for role in user.titles %}
+	        <li><a class="dropdown-item" href="?role={{ role.string }}">{% if role.year %}{{ role.year }}{% endif %}{{ role.level }} {{ role.string }}</a></li>
+	    {% endfor %}
+	  </ul>
         </li>
 
         <li class="nav-item dropdown">
@@ -103,27 +57,15 @@
 		        <li>{{ form.virtual_time(class='form-control w-100 ov-tf-spacing') }}</li>
 	        </ul>
         </li>
-
-        {#<li>#}
-	      {#  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
-        {#</li>#}
-				{##}
-        {#<li>#}
-        {#  <button class="btn btn-outline-success" type="submit">Search</button>#}
-        {#</li>#}
-
       </ul>
 
-		  {#<form class="d-flex">#}
-	    <div class="d-flex">
-        {#<input class="form-control me-2" type="search" placeholder="Student name/code" aria-label="Search">#}
-				{{ form.query(class='form-control me-2') }}
+      <div class="d-flex">
+        {{ form.query(class='form-control me-2') }}
 		    {#<button class="btn btn-outline-success" type="submit">Search</button>#}
         {{ form.submit(class='btn btn-outline-success') }}
-	    </div>
-		    {#</form>#}
+      </div>
 
-	    <a href="../" class="btn btn-outline-success" type="submit">Log out</a>
+      <a href="../" class="btn btn-outline-success" type="submit">Log out</a>
   </div>
 </form>
 
@@ -136,7 +78,6 @@
 				<div class="ov-class align-self-center green">{{ student.group.string }}</div>
 				<div class="ov-student-name-container green">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name green">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin green">{{ student.name_last}}</div>
 					{% else %}
@@ -152,7 +93,6 @@
 				<div class="ov-class align-self-center green">{{ student.group.string }}</div>
 				<div class="ov-student-name-container green">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name green">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin green">{{ student.name_last}}</div>
 					{% else %}
@@ -168,7 +108,6 @@
 				<div class="ov-class align-self-center orange">{{ student.group.string }}</div>
 				<div class="ov-student-name-container orange">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name orange">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin orange">{{ student.name_last}}</div>
 					{% else %}
@@ -184,7 +123,6 @@
 				<div class="ov-class align-self-center orange">{{ student.group.string }}</div>
 				<div class="ov-student-name-container orange">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name orange">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin orange">{{ student.name_last}}</div>
 					{% else %}
@@ -200,7 +138,6 @@
 				<div class="ov-class align-self-center red">{{ student.group.string }}</div>
 				<div class="ov-student-name-container red">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name red">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin red">{{ student.name_last}}</div>
 					{% else %}
@@ -216,7 +153,6 @@
 				<div class="ov-class align-self-center red">{{ student.group.string }}</div>
 				<div class="ov-student-name-container red">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name red">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin red">{{ student.name_last}}</div>
 					{% else %}
@@ -232,7 +168,6 @@
 				<div class="ov-class align-self-center grey">{{ student.group.string }}</div>
 				<div class="ov-student-name-container grey">
 					{% if sort_by == 'Last name' %}
-{#						{{ student_status(student) }}#}
 						<div class="ov-first-name grey">{{ student.name_first }}</div>
 						<div class="ov-last-name ov-bold ov-margin grey">{{ student.name_last}}</div>
 					{% else %}
