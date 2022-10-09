@@ -1,0 +1,36 @@
+{% block content %}
+
+<div onload="getTime()" class="footer-container">
+
+    <span class="kop tijd">
+        <span id="date">
+            {{ vd.date_str }}
+        </span>
+        <span id="time">
+            {{ vd.time_str }}
+        </span>
+    </span>
+
+
+    <img class="logo" src="{{ url_for('static',filename='media/absense full.png') }}">
+
+    {% if not vd %}
+        <div style="background-color: #4DF24B; width: 100px; height: 100px"></div>
+        <script>
+            function getTime() {
+                var date = new Date();
+                var date_str = [date.getFullYear(), (date.getMonth() + 1), date.getDate()];
+                document.getElementById("date").textContent = date_str.join('/');
+                var time = date.getHours() + ":" + ('0'+date.getMinutes()).slice(-2);
+                document.getElementById("time").textContent = document.getElementById("time").slice(-5) + time;
+            }
+            getTime();
+            setInterval(getTime, 1000);
+        </script>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock content %}
