@@ -1,0 +1,142 @@
+{% block content %}
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+
+{% if user and is_off %}
+    <div class="alert-box failure">There wasn't a single (future) class linked to your account.
+        If you're unsure why, reach out to an employee.</div>
+    <script>
+        window.onload = (event) => {
+            $("div.failure").fadeIn(300).delay(5000).fadeOut(400);
+        };
+    </script>
+
+{% elif user and has_logged %}
+  <div class="alert-box warning">{{ user }}, you're already checked in for {{ hour_now.course }} ({{ hour_now.time_start }}-{{ hour_now.time_end }}).</div>
+
+  <script>
+      window.onload = (event) => {
+          $("div.warning").fadeIn(300).delay(5000).fadeOut(400);
+      };
+  </script>
+
+{% elif user and hour_now and not has_logged %}
+    <div class="alert-box success">{{ user }} just checked in for class {{ hour_now.course }} ({{ hour_now.time_start }}-{{ hour_now.time_end }}).</div>
+    <script>
+        window.onload = (event) => {
+            $("div.success").fadeIn(300).delay(5000).fadeOut(400);
+        };
+    </script>
+
+{% elif user and not has_lessons and hour_next %}
+    <div class="alert-box warning">{{ user }}, you don't have class today.
+        Your next class is {{ hour_next.course }} on {{ hour_next_date }} ({{ weekday }} {{ hour_next.time_start }}-{{ hour_next.time_end }}).
+    </div>
+    <script>
+        window.onload = (event) => {
+            $("div.warning").fadeIn(300).delay(5000).fadeOut(400);
+        };
+    </script>
+
+{% elif user and has_lessons %}
+    <div class="alert-box warning">{{ user }}, you don't have class right now.
+        Your next class is {{ hour_next.course }} ({{ hour_next.time_start }}-{{ hour_next.time_end }}).
+    </div>
+    <script>
+        window.onload = (event) => {
+            $("div.warning").fadeIn(300).delay(5000).fadeOut(400);
+        };
+    </script>
+
+{% elif user_prev and checkin_code %}
+    {% if checkin_code == 'present' %}
+        <div class="alert-box success">{{ user_prev }} checked in as attending.</div>
+        <script>
+            window.onload = (event) => {
+                $("div.success").fadeIn(300).delay(5000).fadeOut(400);
+            };
+        </script>
+
+    {% elif checkin_code == 'late' %}
+        <div class="alert-box success">{{ user_prev }} checked in as late.</div>
+        <script>
+            window.onload = (event) => {
+                $("div.success").fadeIn(300).delay(5000).fadeOut(400);
+            };
+        </script>
+
+    {% elif checkin_code == 'absent' %}
+        <div class="alert-box success">{{ user_prev }} checked in as absent.</div>
+        <script>
+            window.onload = (event) => {
+                $("div.success").fadeIn(300).delay(5000).fadeOut(400);
+            };
+        </script>
+
+    {% elif checkin_code == 500 %}
+        <div class="alert-box failure">FAILED TO CHECK IN - TRY AGAIN</div>
+        <script>
+            window.onload = (event) => {
+                $("div.failure").fadeIn(300).delay(5000).fadeOut(400);
+            };
+        </script>
+
+    {% endif %}
+
+{% elif login_attempt %}
+    <div class="alert-box failure">Check your email and password.</div>
+    <script>
+        window.onload = (event) => {
+            $("div.failure").fadeIn(300).delay(5000).fadeOut(400);
+        };
+    </script>
+
+{% endif %}
+
+
+<div class="login-main-container">
+
+    <form method="POST" action="">
+        {{ form_login.hidden_tag() }}
+
+    <div class="login-kop">Welcome!</div>
+    <div class="login-sub">Scan your card or log in.</div>
+
+        <fieldset class="login-group">
+            <div class="login-username">
+                {{ form_login.email(class="login-form") }}
+            </div>
+            <div class="login-password">
+                {{ form_login.password(class="login-form") }}
+            </div>
+            <div class="terminal-submit">
+                {{ form_login.submit(class="login-form submit") }}
+            </div>
+            <div class="login-sub"></div>
+            <div class="login-sub">
+                Virtual Datetime
+                <a target="_blank" href="/help">
+                    <img style="max-height: 20px" src="{{ url_for('static', filename='media/help-icon.png') }}">
+                </a>
+            </div>
+            <div class="login-virtual_date">
+                {{ form_login.virtual_date(class="login-form") }}
+            </div>
+            <div class="login-virtual_time">
+                {{ form_login.virtual_time(class="login-form") }}
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    {% include "footer.html" %}
+
+</div>
+</body>
+
+{% endblock content %}

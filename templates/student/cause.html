@@ -1,0 +1,41 @@
+{% block content %}
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cause.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+<div class="login-main-container">
+    <div class="terminal-content-container">
+        <form method="POST" action="">
+
+            {{ form_cause.hidden_tag() }}
+
+            {% if absent %}
+            <div class="login-kop">You're absent because you are {{ max_abs }}+ minutes late.</div>
+            {% else %}
+            <div class="login-kop">You are {{ mins_late }} minutes late.</div>
+            {% endif %}
+
+            <div class="login-sub">{{user}}, is there a reason you're late for {{ hour_now.course }}?</div>
+            <fieldset class="login-group">
+                <div class="login-username">
+                    {{ form_cause.cause(class="login-form cause")}}
+                </div>
+                <div class="login-password">
+                    {{ form_cause.reasoning(style="option {font-family:'Blogsans Regular'}", maxlength="100", rows="2", class="login-form reasoning") }}
+                </div>
+                <div class="terminal-submit">
+                    {{ form_cause.submit(class="login-form submit") }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+{% include "footer.html" %}
+
+</div>
+</body>
+
+{% endblock content %}
