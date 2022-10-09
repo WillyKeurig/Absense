@@ -1,0 +1,13 @@
+# webapp
+flask
+flask-wtf
+flask-login
+flask_sqlalchemy
+
+# sql
+pymysql
+mysql-connector-python
+
+# security
+cryptography
+argon2-cffi
