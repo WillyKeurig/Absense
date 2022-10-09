@@ -1,0 +1,50 @@
+{% block content %}
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/employee/base.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+
+
+{% if wrong_login %}
+    <div class="alert-box failure">Check your email and password.</div>
+
+    <script>
+        window.onload = (event) => {
+            $("div.failure").fadeIn(300).delay(1500).fadeOut(400);
+        };
+    </script>
+{% endif %}
+
+
+<div class="login-main-container">
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+    <div class="login-kop">Welcome!</div>
+    <div class="login-sub">Log in as an employee.</div>
+
+        <fieldset class="login-group">
+            <div class="login-username">
+                {{ form.email(class="login-form") }}
+            </div>
+            <div class="login-password">
+                {{ form.password(class="login-form") }}
+            </div>
+            <div class="terminal-submit">
+                {{ form.submit(class="login-form submit") }}
+            </div>
+        </fieldset>
+
+    </form>
+
+    {% include "footer.html" %}
+
+</div>
+</body>
+
+{% endblock content %}
